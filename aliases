@@ -10,6 +10,17 @@ alias genmac="openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'"
 ## docker 
 #alias dockstx="docker stop $(docker ps -aq | tr '\n' ' ')"
 
+                                                          
+#                                                            
+#                                       .g8""8q.    .M"""bgd 
+#                                     .dP'    `YM. ,MI    "Y 
+#  `7MMpMMMb.pMMMb.   ,6"Yb.  ,p6"bo  dM'      `MM `MMb.     
+#    MM    MM    MM  8)   MM 6M'  OO  MM        MM   `YMMNq. 
+#    MM    MM    MM   ,pm9MM 8M       MM.      ,MP .     `MM 
+#    MM    MM    MM  8M   MM YM.    , `Mb.    ,dP' Mb     dM 
+#   .JMML  JMML  JMML.`Moo9^Yo.YMbmd'    `"bmmd"'   P"Ybmmd"  
+#                                                          
+                                                          
 ## macOS specific
 alias genpw="cat /dev/urandom | gtr -cd '\040-\177' | head -c ${1:-12}; echo"
 alias getuuid="ioreg -d2 -c IOPlatformExpertDevice"

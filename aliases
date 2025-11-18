@@ -1,0 +1,41 @@
+## debian specific
+alias findnewlog='find /var/log -type f -newermt "$(date +%Y-%m-%d)"'
+alias ip-api='curl "http://ip-api.com/line/?fields=21708799"'
+alias getmyip="curl ip-api.com"
+alias constat='lsof -i -P -n +c 15'
+alias openports="sudo ss -ltpn"
+alias debports='netstat -tulpn'
+alias genmac="openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'"
+
+## docker 
+#alias dockstx="docker stop $(docker ps -aq | tr '\n' ' ')"
+
+## macOS specific
+alias genpw="cat /dev/urandom | gtr -cd '\040-\177' | head -c ${1:-12}; echo"
+alias getuuid="ioreg -d2 -c IOPlatformExpertDevice"
+
+# /usr/libexec/mdmclient encrypt <recipient cert name> <path to plist>
+alias mdmids="/usr/libexec/mdmclient dumpSCEPVars"
+alias mdmdevinfo="sudo /usr/libexec/mdmclient QueryDeviceInformation"
+alias mdmcerts="sudo /usr/libexec/mdmclient QueryCertificates"
+alias mdmsecinfo="sudo /usr/libexec/mdmclient QuerySecurityInfo"
+
+# SHOW/HIDE HIDDEN FILES
+alias showhidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidehidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# SHOW/HIDE DESKTOP ICONS
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Networking 
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias listnet='sudo networksetup -listallnetworkservices'
+alias setv6off='sudo networksetup -setv6off '
+alias getipblacklist="curl https://raw.githubusercontent.com/3FIFTYnet/dbl/main/abusive_ips_blacklist.txt"
+alias getnetblacklist="curl https://raw.githubusercontent.com/3FIFTYnet/dbl/main/abusive_subnet_24_blacklist.txt"
+
+# ADD A ROUTE (For the user session, will be lost at logout/reboot).
+# addrt NET-CIDR/0 ROUTER-IP
+# EX. sudo route -n add -net 10.13.0.1/24 192.168.10.1
+alias addrt="sudo route -n add -net "

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Screensaver</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1;
+            height: 100vh;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,255,0,0.03) 2px,
+                rgba(0,255,0,0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        .ascii {
+            position: absolute;
+            white-space: pre;
+            font-family: 'Lucida Console', 'Monaco', monospace;
+            z-index: 10;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: 0;
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: auto;
+            text-rendering: geometricPrecision;
+            image-rendering: pixelated;
+        }
+        
+        .ascii.green {
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
+        }
+        
+        .ascii.blue {
+            color: #0088ff;
+            text-shadow: 0 0 5px #0088ff, 0 0 10px #0088ff, 0 0 15px #0088ff;
+        }
+        
+        .ascii.red {
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    
+    <script>
+        const ascii = `░██                              ░██   ░██    
+░██                                    ░██    
+░████████  ░██    ░██ ░████████  ░██░████████ 
+░██    ░██ ░██    ░██ ░██    ░██ ░██   ░██    
+░██    ░██ ░██    ░██ ░██    ░██ ░██   ░██    
+░███   ░██ ░██   ░███ ░██    ░██ ░██   ░██    
+░██░█████   ░█████░██ ░██    ░██ ░██    ░████`;
+
+        const lines = ascii.split('\n');
+        const width = Math.max(...lines.map(l => l.length)) * 12;
+        const height = lines.length * 20;
+
+        const colors = ['green', 'blue', 'red'];
+        let colorIndex = 0;
+        
+        class Bouncer {
+            constructor() {
+                this.x = Math.random() * (window.innerWidth - width);
+                this.y = Math.random() * (window.innerHeight - height);
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.el = document.createElement('div');
+                this.el.className = 'ascii ' + colors[colorIndex];
+                colorIndex = (colorIndex + 1) % colors.length;
+                this.el.textContent = ascii;
+                document.body.appendChild(this.el);
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < 0 || this.x + width > window.innerWidth) {
+                    this.vx *= -1;
+                    this.x = Math.max(0, Math.min(this.x, window.innerWidth - width));
+                }
+                if (this.y < 0 || this.y + height > window.innerHeight) {
+                    this.vy *= -1;
+                    this.y = Math.max(0, Math.min(this.y, window.innerHeight - height));
+                }
+                
+                this.el.style.left = this.x + 'px';
+                this.el.style.top = this.y + 'px';
+            }
+        }
+
+        const bouncers = [new Bouncer(), new Bouncer(), new Bouncer()];
+        
+        function animate() {
+            bouncers.forEach(b => b.update());
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>

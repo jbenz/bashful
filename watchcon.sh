@@ -5,7 +5,7 @@ while true; do
     echo "Current Network Connections"
     echo $HOSTNAME
     echo " "
-    ./shownetcon.sh
+    ./revnetcon.sh
 # lsof -i -P -n +c 15 |grep EST
     sleep 5
 done

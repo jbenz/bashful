@@ -25,6 +25,8 @@ alias viewpem="openssl x509 -text -noout -in "
 ## macOS specific
 alias genpw="cat /dev/urandom | gtr -cd '\040-\177' | head -c ${1:-12}; echo"
 alias getuuid="ioreg -d2 -c IOPlatformExpertDevice"
+alias shownetports="netstat -anv | grep LISTEN"
+alias showlsports="sudo lsof -i -P | grep LISTEN"
 
 # /usr/libexec/mdmclient encrypt <recipient cert name> <path to plist>
 alias mdmids="/usr/libexec/mdmclient dumpSCEPVars"

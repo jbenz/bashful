@@ -12,6 +12,8 @@ alias pyhttpd="python3 -m http.server 8000"
 ## docker 
 #alias dockstx="docker stop $(docker ps -aq | tr '\n' ' ')"
 
+## vscode
+alias killcode="pkill -f -9 .vscode-server"
                                                           
 #                                                            
 #                                       .g8""8q.    .M"""bgd 
